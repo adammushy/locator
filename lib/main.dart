@@ -102,12 +102,13 @@ class MapSampleState extends State<MapSample> {
                 ),
               ),
               IconButton(
-                  onPressed: () async {
-                    var place = await LocationService()
-                        .getPlace(_searchController.text);
-                    _goToPlace(place);
-                  },
-                  icon: const Icon(Icons.search))
+                onPressed: () async {
+                  var place =
+                      await LocationService().getPlace(_searchController.text);
+                  _goToPlace(place);
+                },
+                icon: const Icon(Icons.search),
+              ),
             ],
           ),
           Expanded(
@@ -142,6 +143,7 @@ class MapSampleState extends State<MapSample> {
         CameraPosition(target: LatLng(lat, lng), zoom: 12),
       ),
     );
+    _setMarker(LatLng(lat, lng));
   }
 
   // Future<void> _goToDit() async {
