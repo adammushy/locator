@@ -41,30 +41,44 @@ class LocationService {
 
     var response = await http.get(Uri.parse(url));
 
+    print("passed heree 1");
     var json = convert.jsonDecode(response.body);
+    // var placeName = json['place_name'] as String;
+    print("passed heree 2-------------");
 
-    
-    if (json['candidates'] != null && json['candidates'].isNotEmpty) {
-        var placeId = json['candidates']['place_id'] as String;
-        print(placeId);
+    print(response);
+    print(response.body);
 
-        return placeId;
-      } else {
-        throw Exception('No candidates found in the response');
-      }
-    // var placeId = json['candidates'][0]['place_id'] as String;
+    // if (json['candidates'] != null && json['candidates'].isNotEmpty) {
+    //   var placeId = json['candidates'][0]['place_id'] as String;
+    //   print(placeId);
 
-    // return placeId;
+    //   return placeId;
+    // } else {
+    //   throw Exception('No candidates found in the response');
+    // }
+    var placeId = json['candidates'][0]['place_id'] as String;
+
+    return placeId;
   }
 
   Future<Map<String, dynamic>> getPlace(String input) async {
     // final placeId = await getPlace(input);
+    // print("tuanze tupate eneo----------");
+
     final placeId = await getPlaceId(input);
     final String url =
-        'http://maps.googleapis.com/maps/api/place/details/json?place_id=$placeId&key=$key';
+        'https://maps.googleapis.com/maps/api/place/details/json?place_id=$placeId&key=$key';
     var response = await http.get(Uri.parse(url));
     var json = convert.jsonDecode(response.body);
+    print("tupate eneo----------");
+    print(response.body);
+    // var placeName = json['place_name'] as String;
     var results = json['result'] as Map<String, dynamic>;
+    // var placeName = json['place_name'] as String;
+    // print(placeName);
+    
+    
 
     print(results);
     return results;

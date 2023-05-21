@@ -53,7 +53,7 @@ class MapSampleState extends State<MapSample> {
   Set<Marker> _markers = Set<Marker>();
 
   static const CameraPosition _kGooglePlex = CameraPosition(
-    target: LatLng(-6.814988, 39.279366),
+    target: LatLng(-6.81, 39.27),
     zoom: 14.4746,
   );
 
@@ -66,15 +66,16 @@ class MapSampleState extends State<MapSample> {
   @override
   void initState() {
     super.initState();
-    _setMarker(LatLng(-6.814988, 39.279366));
+    _setMarker(LatLng(-6.814988, 39.279366),'Dit');
   }
 
-  void _setMarker(LatLng point) {
+  void _setMarker(LatLng point ,placeName) {
     setState(() {
       _markers.add(
         Marker(
           markerId: MarkerId('marker'),
           position: point,
+          infoWindow: InfoWindow(title:placeName )
         ),
       );
     });
@@ -105,7 +106,7 @@ class MapSampleState extends State<MapSample> {
                 onPressed: () async {
                   var place =
                       await LocationService().getPlace(_searchController.text);
-                  _goToPlace(place);
+                        _goToPlace(place);
                 },
                 icon: const Icon(Icons.search),
               ),
@@ -136,14 +137,15 @@ class MapSampleState extends State<MapSample> {
   Future<void> _goToPlace(Map<String, dynamic> place) async {
     final double lat = place['geometry']['location']['lat'];
     final double lng = place['geometry']['location']['lng'];
+    final String placeName = place['name'];
 
     final GoogleMapController controller = await _controller.future;
     controller.animateCamera(
       CameraUpdate.newCameraPosition(
-        CameraPosition(target: LatLng(lat, lng), zoom: 12),
+        CameraPosition(target: LatLng(lat, lng), zoom: 15),
       ),
     );
-    _setMarker(LatLng(lat, lng));
+    _setMarker(LatLng(lat, lng), placeName);
   }
 
   // Future<void> _goToDit() async {
