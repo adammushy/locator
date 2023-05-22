@@ -114,11 +114,10 @@ class MapSampleState extends State<MapSample1> {
                   //     await LocationService().getPlace(_searchController.text);
                   //       _goToPlace(place);
                   _goToPlace(
-                     directions['bounds_ne'],
+                    directions['bounds_ne'],
                     directions['bounds_sw'],
                     directions['start_location']['lat'],
                     directions['start_location']['lng'],
-                   
                   );
                   _setPolyline(directions['polyline_decoded']);
                 },
@@ -166,11 +165,10 @@ class MapSampleState extends State<MapSample1> {
 
   Future<void> _goToPlace(
     // Map<String, dynamic> place
-  Map<String, dynamic> boundsNe,
+    Map<String, dynamic> boundsNe,
     Map<String, dynamic> boundsSw,
     double lat,
     double lng,
-   
   ) async {
     // final double lat = place['geometry']['location']['lat'];
     // final double lng = place['geometry']['location']['lng'];

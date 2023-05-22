@@ -29,7 +29,7 @@ class _CurrentLocationScreenState extends State<CurrentLocationScreen> {
         initialCameraPosition: initialCameraPosition,
         markers: markers,
         zoomControlsEnabled: false,
-        mapType: MapType.satellite,
+        mapType: MapType.normal,
         onMapCreated: (GoogleMapController controller) {
           googleMapController = controller;
         },
