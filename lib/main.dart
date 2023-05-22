@@ -3,6 +3,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:locator/add_place.dart';
 import 'package:locator/current_location.dart';
 import 'package:locator/location_services.dart';
 import 'direction.dart';
@@ -142,6 +143,36 @@ class _MainMenuState extends State<MainMenu> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text("Current Place",style: TextStyle(fontSize: 24,fontWeight: FontWeight.w600,),),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+               GestureDetector(
+              onTap:(){ Navigator.push(context, MaterialPageRoute(builder: (context)=>AddPlace()));
+              },
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Card(
+                  elevation: 20,
+                  child: Container(
+                    // padding: EdgeInsets.all(0.0),
+                    height: 200,
+                    width: double.infinity,
+                    
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      image: DecorationImage(image: AssetImage("assets/images/live.jpg",),fit:BoxFit.cover )
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.only(bottom: 20,left: 12),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text("Add markers",style: TextStyle(fontSize: 24,fontWeight: FontWeight.w600,),),
                         ],
                       ),
                     ),

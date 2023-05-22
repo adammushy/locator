@@ -11,14 +11,14 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 // import 'main.dart';
 // import 'directions.dart';
 
-class MapSample extends StatefulWidget {
-  const MapSample({super.key});
+class AddPlace extends StatefulWidget {
+  const AddPlace({super.key});
 
   @override
-  State<MapSample> createState() => MapSampleState1();
+  State<AddPlace> createState() => AddPlaceState();
 }
 
-class MapSampleState1 extends State<MapSample> {
+class AddPlaceState extends State<AddPlace> {
   final Completer<GoogleMapController> _controller =
       Completer<GoogleMapController>();
   final TextEditingController _searchController = TextEditingController();
@@ -94,24 +94,23 @@ class MapSampleState1 extends State<MapSample> {
               onMapCreated: (GoogleMapController controller) {
                 _controller.complete(controller);
               },
-              markers: _markers,
-              onTap: (LatLng latLng) {
-                showDialog(
-                  context: context,
-                  builder: (BuildContext context) {
-                    Future.delayed(const Duration(seconds: 5), () {
-                      Navigator.of(context).pop();
-                    });
-
-                    return AlertDialog(
-                      title: Text('Coordinates'),
-                      content: Text('$latLng'),
-                    );
-                  },
+              // markers: _markers,
+              markers: _markersList.map((e) => e).toSet(),
+              onLongPress: (LatLng latlng) {
+                Marker newMarker = Marker(
+                  markerId: MarkerId('$id'),
+                  position: LatLng(latlng.latitude, latlng.longitude),
+                  infoWindow: InfoWindow(title: '$latlng'),
+                  icon: BitmapDescriptor.defaultMarkerWithHue(
+                      BitmapDescriptor.hueBlue),
                 );
-              },
-              onLongPress: (LatLng latLng) {
-                print("our Lat and LOng is : $latLng");
+
+                _markersList.add(newMarker);
+                id++;
+                setState(() {
+                  // id++;
+                });
+                print("our Latitude and Longitude is : $latlng");
               },
             ),
           ),

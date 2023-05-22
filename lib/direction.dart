@@ -78,52 +78,55 @@ class MapSampleState extends State<MapSample1> {
       ),
       body: Column(
         children: [
-          Row(
-            children: [
-              Expanded(
-                child: Column(
-                  children: [
-                    TextFormField(
-                      controller: _originController,
-                      // textCapitalization: TextCapitalization.sentences,
-                      decoration: InputDecoration(hintText: 'Start'),
-                      onChanged: (value) {
-                        print(value);
-                      },
-                    ),
-                    TextFormField(
-                      controller: _destinationController,
-                      // textCapitalization: TextCapitalization.sentences,
-                      decoration: InputDecoration(hintText: 'Destination'),
-                      onChanged: (value) {
-                        print(value);
-                      },
-                    ),
-                  ],
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 10),
+            child: Row(
+              children: [
+                Expanded(
+                  child: Column(
+                    children: [
+                      TextFormField(
+                        controller: _originController,
+                        // textCapitalization: TextCapitalization.sentences,
+                        decoration: InputDecoration(hintText: 'Start'),
+                        onChanged: (value) {
+                          print(value);
+                        },
+                      ),
+                      TextFormField(
+                        controller: _destinationController,
+                        // textCapitalization: TextCapitalization.sentences,
+                        decoration: InputDecoration(hintText: 'Destination'),
+                        onChanged: (value) {
+                          print(value);
+                        },
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-              IconButton(
-                onPressed: () async {
-                  var directions = await LocationService().getDirections(
-                    _originController.text,
-                    _destinationController.text,
-                  );
-                  print("get ready to get directions");
-                  print(directions);
-                  // var place =
-                  //     await LocationService().getPlace(_searchController.text);
-                  //       _goToPlace(place);
-                  _goToPlace(
-                    directions['bounds_ne'],
-                    directions['bounds_sw'],
-                    directions['start_location']['lat'],
-                    directions['start_location']['lng'],
-                  );
-                  _setPolyline(directions['polyline_decoded']);
-                },
-                icon: const Icon(Icons.search),
-              ),
-            ],
+                IconButton(
+                  onPressed: () async {
+                    var directions = await LocationService().getDirections(
+                      _originController.text,
+                      _destinationController.text,
+                    );
+                    print("get ready to get directions");
+                    print(directions);
+                    // var place =
+                    //     await LocationService().getPlace(_searchController.text);
+                    //       _goToPlace(place);
+                    _goToPlace(
+                      directions['bounds_ne'],
+                      directions['bounds_sw'],
+                      directions['start_location']['lat'],
+                      directions['start_location']['lng'],
+                    );
+                    _setPolyline(directions['polyline_decoded']);
+                  },
+                  icon: const Icon(Icons.search),
+                ),
+              ],
+            ),
           )
           // SizedBox(height: 50,),
           // Row(
@@ -149,6 +152,22 @@ class MapSampleState extends State<MapSample1> {
               },
               markers: _markers,
               polylines: _polylines,
+              onLongPress: (LatLng latLng) {
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    Future.delayed(const Duration(seconds: 5), () {
+                      Navigator.of(context).pop();
+                    });
+
+                    return AlertDialog(
+                      
+                      title: Text('Coordinates'),
+                      content: Text('$latLng'),
+                    );
+                  },
+                );
+              },
             ),
           ),
         ],
