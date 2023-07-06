@@ -5,7 +5,7 @@ import 'dart:convert' as convert;
 // import 'dart:html';
 
 class LocationService {
-  final String key = 'AIzaSyCHrIPck8HnlOsi5KD7jXbQBSPx_7mJ3n4';
+  final String key = 'API-KEY';
 
   // Future<String> getPlaceId(String input) async {
   //   final String url =
@@ -62,6 +62,7 @@ class LocationService {
 
     return placeId;
   }
+
   Future<Map<String, dynamic>> getPlace(String input) async {
     // final placeId = await getPlace(input);
     // print("tuanze tupate eneo----------");
@@ -77,8 +78,6 @@ class LocationService {
     var results = json['result'] as Map<String, dynamic>;
     // var placeName = json['place_name'] as String;
     // print(placeName);
-    
-    
 
     print(results);
     return results;

@@ -147,7 +147,7 @@ class AddPlaceState extends State<AddPlace> {
 }
 
 class LocationService {
-  final String key = 'AIzaSyCHrIPck8HnlOsi5KD7jXbQBSPx_7mJ3n4';
+  final String key = 'API-KEY';
 
   // Future<String> getPlaceId(String input) async {
   //   final String url =
